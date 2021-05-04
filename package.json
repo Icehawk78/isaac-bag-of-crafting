@@ -13,7 +13,7 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "build": "xcopy /E /I /Y /d assets dist\\assets && tsc -p .",
+    "build": "cp -r assets/ dist/assets/ && tsc -p .",
     "start": "node dist/index.js"
   }
 }

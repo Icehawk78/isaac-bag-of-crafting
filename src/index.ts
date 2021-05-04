@@ -10,7 +10,16 @@ const pools = XmlParser.loadPools(fs.readFileSync('assets/itempools.xml', 'utf8'
 const meta = XmlParser.loadMeta(fs.readFileSync('assets/items_metadata.xml', 'utf8'));
 const bc = new BagOfCrafting(pools, meta);
 
-const craftParts = {
+interface Hash<T> {
+  [key: string]: T;
+}
+
+interface CraftItem {
+  name: string;
+  id: number;
+}
+
+const craftParts: Hash<CraftItem> = {
   'b': {'name': 'Red Heart', 'id': 1},
   'c': {'name': 'Soul Heart', 'id': 2},
   'd': {'name': 'Black Heart', 'id': 2},
@@ -41,6 +50,6 @@ const craftParts = {
 const asciiToNum = (s: string) => s.split('').map(c => craftParts[c]['id']).sort();
 
 let inputs = 'bccijmpppqw';
-let c = _.uniq(Combinations(asciiToNum(inputs), 8));
+let c: number[][] = _.uniq(Combinations(asciiToNum(inputs), 8));
 
 c.forEach(i => console.log(i, bc.calculate(i)));
